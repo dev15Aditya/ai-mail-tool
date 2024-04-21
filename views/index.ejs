@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto reply service</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      /* Style for the sender's name */
+      .sender {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      /* Style for the snippet */
+      .snippet {
+        color: #666;
+      }
+
+      .label {
+        background-color: rgb(204, 231, 163);
+        color: #444444;
+        padding: 5px 10px;
+        border-radius: 4px;
+        float: right;
+        font-weight: bold;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome!</h1>
+      <p>Hello, <%= name %>! You have successfully logged in.</p>
+
+      <ul id="emailList">
+        <% emails.forEach(message => { %>
+        <li>
+          <span class="sender"><%= message.senderName.slice(0,20) %>...</span>
+
+          <a href="#" class="label"><%= message.label %></a>
+          <p class="snippet">
+            <% const snippetLines = message.snippet.split('\n'); %> <% const
+            firstSnippetLine = snippetLines[0]; %> <%=
+            firstSnippetLine.slice(0,75) %>...
+          </p>
+        </li>
+        <% }); %>
+      </ul>
+      <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+      </form>
+    </div>
+  </body>
+</html>
